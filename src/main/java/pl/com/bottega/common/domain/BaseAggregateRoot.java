@@ -15,11 +15,11 @@ public abstract class BaseAggregateRoot extends BaseEntity {
     private LocalDateTime updatedAt;
 
     public void remove() {
-
+        this.removed = true;
     }
 
     public boolean isRemoved() {
-        return false;
+        return removed;
     }
 
 }
