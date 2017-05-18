@@ -21,7 +21,7 @@ public abstract class JPABaseRepository<Aggregate extends BaseAggregateRoot> imp
 
     @Override
     public Aggregate get(Long id) throws AggregateNotFoundException {
-        return null;
+        return entityManager.find(aggregateClass, id);
     }
 
     @Override
@@ -31,7 +31,7 @@ public abstract class JPABaseRepository<Aggregate extends BaseAggregateRoot> imp
 
     @Override
     public void put(Aggregate aggregate) {
-
+        entityManager.persist(aggregate);
     }
 
     @Override
