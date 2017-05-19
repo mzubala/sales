@@ -2,10 +2,13 @@ package pl.com.bottega.sales.domain;
 
 import pl.com.bottega.common.domain.Address;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 
 @Embeddable
+@Access(value = AccessType.FIELD)
 public class CustomerSnapshot {
 
     private Long customerId;

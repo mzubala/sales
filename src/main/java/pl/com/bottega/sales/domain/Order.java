@@ -20,14 +20,14 @@ public class Order extends BaseAggregateRoot {
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "value", column = @Column(name = "total_value")),
-            @AttributeOverride(name = "currency", column = @Column(name = "total_currency"))
+            @AttributeOverride(name = "currencyCode", column = @Column(name = "total_currency"))
     })
     private Money total;
 
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "value", column = @Column(name = "rabate_value")),
-            @AttributeOverride(name = "currency", column = @Column(name = "rabate_currency"))
+            @AttributeOverride(name = "currencyCode", column = @Column(name = "rabate_currency"))
     })
     private Money rabate;
 

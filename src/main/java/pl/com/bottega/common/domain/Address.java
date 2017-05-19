@@ -2,6 +2,8 @@ package pl.com.bottega.common.domain;
 
 import com.google.common.base.Objects;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 
 import static com.google.common.base.Preconditions.checkNotNull;

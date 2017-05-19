@@ -2,10 +2,10 @@ package pl.com.bottega.sales.domain;
 
 import pl.com.bottega.common.domain.Money;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
+import javax.persistence.*;
 
 @Embeddable
+@Access(value = AccessType.FIELD)
 public class ProductSnapshot {
 
     private Long productId;

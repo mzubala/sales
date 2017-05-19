@@ -1,5 +1,7 @@
 package pl.com.bottega.common.domain;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,6 +9,7 @@ import java.math.RoundingMode;
 import java.util.Currency;
 
 @Embeddable
+@Access(value = AccessType.FIELD)
 public class Money implements Serializable {
 
     public static final Currency DEFAULT_CURRENCY = Currency.getInstance("EUR");
@@ -77,7 +80,7 @@ public class Money implements Serializable {
      * Currency is compatible if the same or either money object has zero value.
      */
     private boolean compatibleCurrency(Money money) {
-        return isZero(value) || isZero(money.value) || currencyCode.equals(money.getCurrencyCode());
+        return isZero(value) || isZero(money.value) || currencyCode.equals(money.currencyCode());
     }
 
     private boolean isZero(BigDecimal testedValue) {
@@ -93,11 +96,11 @@ public class Money implements Serializable {
         return Currency.getInstance(resultingCurrenctCode);
     }
 
-    public String getCurrencyCode() {
+    public String currencyCode() {
         return currencyCode;
     }
 
-    public Currency getCurrency() {
+    public Currency currency() {
         return Currency.getInstance(currencyCode);
     }
 
@@ -115,6 +118,6 @@ public class Money implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%0$.2f %s", value, getCurrency().getSymbol());
+        return String.format("%0$.2f %s", value, currency().getSymbol());
     }
 }
