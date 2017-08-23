@@ -3,14 +3,10 @@ package pl.com.bottega.sales.domain;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
 import pl.com.bottega.common.domain.Money;
 
-import javax.persistence.Entity;
-
-//@Entity
 public class Product extends BaseAggregateRoot {
 
     private String name;
     private Money price;
-    private boolean specialOffer;
 
     public Product(String name, Money price) {
         this.name = name;
@@ -23,9 +19,5 @@ public class Product extends BaseAggregateRoot {
 
     public Money getPrice(Customer customer) {
         return price;
-    }
-
-    public ProductSnapshot getSnapshot() {
-        return new ProductSnapshot(getId(), name, price);
     }
 }

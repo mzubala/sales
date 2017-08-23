@@ -1,7 +1,5 @@
 package pl.com.bottega.common.domain;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,7 +7,6 @@ import java.math.RoundingMode;
 import java.util.Currency;
 
 @Embeddable
-@Access(value = AccessType.FIELD)
 public class Money implements Serializable {
 
     public static final Currency DEFAULT_CURRENCY = Currency.getInstance("EUR");

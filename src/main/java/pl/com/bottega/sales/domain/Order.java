@@ -4,50 +4,26 @@ import pl.com.bottega.common.domain.BaseAggregateRoot;
 import pl.com.bottega.common.domain.Money;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-@Entity
-@Table(name = "orders")
 public class Order extends BaseAggregateRoot {
 
-    @ElementCollection(fetch = FetchType.EAGER)
     private List<OrderItem> items = new ArrayList<>();
 
-    @Embedded
-    private CustomerSnapshot customerSnapshot;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "value", column = @Column(name = "total_value")),
-            @AttributeOverride(name = "currencyCode", column = @Column(name = "total_currency"))
-    })
     private Money total;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "value", column = @Column(name = "rabate_value")),
-            @AttributeOverride(name = "currencyCode", column = @Column(name = "rabate_currency"))
-    })
-    private Money rabate;
+    private OrderStatus status;
 
-    @Enumerated(value = EnumType.STRING)
-    private OrderStatus orderStatus;
-
-    public Order(CustomerSnapshot customer) {
+    public Order(Customer customer) {
         this.total = Money.ZERO;
-        this.customerSnapshot = customer;
+        this.status = OrderStatus.NEW;
     }
 
-    public void addItem(ProductSnapshot product, int count) {
-
-    }
-
-    public void removeItem(Long productId) {
+    public void addItem(Product product, int count) {
 
     }
 
-    public void place() {
+    public void removeItem(Product product) {
 
     }
 

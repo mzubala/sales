@@ -8,7 +8,4 @@ import pl.com.bottega.sales.domain.repositories.CustomerRepository;
 
 @Component
 public class JPACustomerRepository extends JPABaseRepository<Customer> implements CustomerRepository {
-    public JPACustomerRepository() {
-        super(Customer.class);
-    }
 }

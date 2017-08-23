@@ -9,7 +9,4 @@ import pl.com.bottega.sales.domain.repositories.OrderRepository;
 public class JPAOrderRepository extends JPABaseRepository<Order>
         implements OrderRepository {
 
-    public JPAOrderRepository() {
-        super(Order.class);
-    }
 }

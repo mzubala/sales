@@ -6,6 +6,7 @@ import pl.com.bottega.common.domain.repositories.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.lang.reflect.ParameterizedType;
 import java.util.Optional;
 
 public abstract class JPABaseRepository<Aggregate extends BaseAggregateRoot> implements Repository<Aggregate> {
@@ -15,34 +16,29 @@ public abstract class JPABaseRepository<Aggregate extends BaseAggregateRoot> imp
 
     private Class<Aggregate> aggregateClass;
 
-    public JPABaseRepository(Class<Aggregate> aggregateClass) {
-        this.aggregateClass = aggregateClass;
+    public JPABaseRepository() {
+        this.aggregateClass = ((Class<Aggregate>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0]);
     }
 
     @Override
     public Aggregate get(Long id) throws AggregateNotFoundException {
-        return getOptional(id).orElseThrow(() -> new AggregateNotFoundException(id, aggregateClass));
+        return null;
     }
 
     @Override
     public Optional<Aggregate> getOptional(Long id) {
-        Aggregate aggregate = entityManager.find(aggregateClass, id);
-        if (aggregate == null || aggregate.isRemoved())
-            return Optional.empty();
-        return Optional.of(aggregate);
+        return null;
     }
 
     @Override
     public void put(Aggregate aggregate) {
-        if (aggregate.getId() == null)
-            entityManager.persist(aggregate);
+
     }
 
     @Override
     public void remove(Long id) {
-        Aggregate aggregate = get(id);
-        aggregate.remove();
-        // entityManager.remove(aggregate);
+
     }
 
 

@@ -9,7 +9,4 @@ import pl.com.bottega.sales.domain.repositories.ProductRepository;
 @Component
 public class JPAProductRepository extends JPABaseRepository<Product> implements ProductRepository {
 
-    public JPAProductRepository() {
-        super(Product.class);
-    }
 }
