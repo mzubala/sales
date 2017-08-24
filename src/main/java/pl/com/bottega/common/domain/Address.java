@@ -2,12 +2,16 @@ package pl.com.bottega.common.domain;
 
 import com.google.common.base.Objects;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-@Embeddable
+@Entity
 public class Address {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String line1;
 
@@ -20,6 +24,8 @@ public class Address {
     private String state;
 
     private String country;
+
+    Address() {}
 
     public Address(String line1, String line2, String zipCode, String city, String state, String country) {
         checkNotNull(line1);

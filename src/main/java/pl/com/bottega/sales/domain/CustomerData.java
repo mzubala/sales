@@ -2,12 +2,18 @@ package pl.com.bottega.sales.domain;
 
 import pl.com.bottega.common.domain.Address;
 
+import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
+
+@Embeddable
 public class CustomerData {
 
     private String firstName, lastName;
 
+    @OneToOne
     private Address shippingAddress;
 
+    @OneToOne
     private Address billingAddress;
 
     CustomerData() {}
