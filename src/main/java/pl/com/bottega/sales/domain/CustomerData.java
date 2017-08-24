@@ -2,6 +2,7 @@ package pl.com.bottega.sales.domain;
 
 import pl.com.bottega.common.domain.Address;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;
 
@@ -10,10 +11,10 @@ public class CustomerData {
 
     private String firstName, lastName;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Address shippingAddress;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Address billingAddress;
 
     CustomerData() {}
