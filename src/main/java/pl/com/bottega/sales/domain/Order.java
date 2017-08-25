@@ -1,6 +1,7 @@
 package pl.com.bottega.sales.domain;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
@@ -11,6 +12,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "orders")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Order extends BaseAggregateRoot {
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)

@@ -20,6 +20,16 @@ public class Customer extends BaseAggregateRoot {
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     private Address billingAddress;
 
+    Customer() {}
+
+    public Customer(String firstName, String lastName, CustomerStatus status, Address shippingAddress, Address billingAddress) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.status = status;
+        this.shippingAddress = shippingAddress;
+        this.billingAddress = billingAddress;
+    }
+
     public String getFirstName() {
         return firstName;
     }
