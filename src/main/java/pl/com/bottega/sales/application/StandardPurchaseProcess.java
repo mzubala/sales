@@ -58,6 +58,7 @@ public class StandardPurchaseProcess implements PurchaseProcess {
 
         order.submit();
 
+
         orderRepository.put(order);
     }
 }
