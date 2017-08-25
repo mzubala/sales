@@ -1,12 +1,21 @@
 package pl.com.bottega.sales.application.users;
 
+import pl.com.bottega.common.domain.BaseAggregateRoot;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserCore implements User {
+@Entity
+@Table(name = "users")
+public class UserCore extends BaseAggregateRoot implements User {
 
+    @OneToMany(mappedBy = "userCore", cascade = CascadeType.ALL, orphanRemoval =  true)
     private Set<UserRole> roles = new HashSet<>();
 
     private String login, password;
