@@ -28,4 +28,8 @@ public class ProductData {
     public Money getPrice() {
         return price;
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -10,10 +10,11 @@ import java.time.Clock;
 public abstract class UserRole implements User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @ManyToOne
+    @JoinColumn(name="user_id", referencedColumnName="id", updatable = false, insertable = false)
     private UserCore userCore;
 
     @Override

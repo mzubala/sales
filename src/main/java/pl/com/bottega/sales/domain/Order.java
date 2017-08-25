@@ -1,5 +1,8 @@
 package pl.com.bottega.sales.domain;
 
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
 import pl.com.bottega.common.domain.Money;
 
@@ -46,6 +49,13 @@ public class Order extends BaseAggregateRoot {
             items.add(newItem);
         }
         updateTotal();
+    }
+
+    public void export(OrderExporter exporter) {
+        Map<String, Integer> linesMap = new HashMap<>();
+        items.forEach(i -> linesMap.put(i.getProductName(), i.getCount()));
+        exporter.addLines(linesMap);
+        exporter.addTotal(total);
     }
 
     private Optional<OrderLine> findByProductId(Long productId) {
