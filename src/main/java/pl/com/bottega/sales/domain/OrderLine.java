@@ -3,7 +3,6 @@ package pl.com.bottega.sales.domain;
 import pl.com.bottega.common.domain.BaseEntity;
 import pl.com.bottega.common.domain.Money;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
@@ -12,8 +11,6 @@ public class OrderLine extends BaseEntity {
 
     @Embedded
     private ProductData productData;
-
-    @Column(name = "productCount")
     private Integer count;
 
     OrderLine() {}

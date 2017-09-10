@@ -14,10 +14,10 @@ public class Customer extends BaseAggregateRoot {
     @Enumerated(EnumType.STRING)
     private CustomerStatus status;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne
     private Address shippingAddress;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne
     private Address billingAddress;
 
     public String getFirstName() {

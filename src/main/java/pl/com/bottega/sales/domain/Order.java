@@ -10,16 +10,10 @@ import java.util.*;
 @Table(name = "orders")
 public class Order extends BaseAggregateRoot {
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
-    @OrderColumn(name = "line_number")
+    @OneToMany
     private List<OrderLine> items = new ArrayList<>();
 
     @Embedded
-    @AttributeOverrides(value = {
-            @AttributeOverride(name = "value", column = @Column(name = "totalValue")),
-            @AttributeOverride(name = "currencyCode", column = @Column(name = "totalCurrencyCode"))
-    })
     private Money total;
 
     @Enumerated(EnumType.STRING)
@@ -28,8 +22,7 @@ public class Order extends BaseAggregateRoot {
     @Embedded
     private CustomerData customerData;
 
-    Order() {
-    }
+    Order() {}
 
     public Order(CustomerData customerData) {
         this.total = Money.ZERO;
@@ -39,7 +32,7 @@ public class Order extends BaseAggregateRoot {
 
     public void addItem(ProductData product, int count) {
         Optional<OrderLine> itemOptional = findByProductId(product.getProductId());
-        if (itemOptional.isPresent())
+        if(itemOptional.isPresent())
             itemOptional.get().increaseCount(count);
         else {
             OrderLine newItem = new OrderLine(product, count);
@@ -59,13 +52,13 @@ public class Order extends BaseAggregateRoot {
 
     private void updateTotal() {
         Money total = Money.ZERO;
-        for (OrderLine line : items)
+        for(OrderLine line : items)
             total = total.add(line.getPrice());
         this.total = total;
     }
 
     public void submit() {
-        if (status == OrderStatus.PLACED)
+        if(status == OrderStatus.PLACED)
             throw new IllegalStateException("Order already submitted");
         status = OrderStatus.PLACED;
     }
