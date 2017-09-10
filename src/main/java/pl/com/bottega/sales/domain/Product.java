@@ -20,8 +20,4 @@ public class Product extends BaseAggregateRoot {
     public Money getPrice(Customer customer) {
         return price;
     }
-
-    public ProductData getSnapshot() {
-        return new ProductData(getId(), name, price);
-    }
 }

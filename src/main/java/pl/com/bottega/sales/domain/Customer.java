@@ -36,8 +36,4 @@ public class Customer extends BaseAggregateRoot {
     public Address getBillingAddress() {
         return billingAddress;
     }
-
-    public CustomerData getSnapshot() {
-        return new CustomerData(firstName, lastName, shippingAddress, billingAddress);
-    }
 }
