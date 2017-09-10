@@ -7,19 +7,14 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "orders")
 public class Order extends BaseAggregateRoot {
 
-    @OneToMany
     private List<OrderLine> items = new ArrayList<>();
 
-    @Embedded
     private Money total;
 
-    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @Embedded
     private CustomerData customerData;
 
     Order() {}
@@ -38,7 +33,7 @@ public class Order extends BaseAggregateRoot {
             OrderLine newItem = new OrderLine(product, count);
             items.add(newItem);
         }
-        updateTotal();
+
     }
 
     private Optional<OrderLine> findByProductId(Long productId) {
@@ -47,20 +42,10 @@ public class Order extends BaseAggregateRoot {
 
     public void removeItem(Long productId) {
         items.removeIf(item -> item.hasProduct(productId));
-        updateTotal();
-    }
-
-    private void updateTotal() {
-        Money total = Money.ZERO;
-        for(OrderLine line : items)
-            total = total.add(line.getPrice());
-        this.total = total;
     }
 
     public void submit() {
-        if(status == OrderStatus.PLACED)
-            throw new IllegalStateException("Order already submitted");
-        status = OrderStatus.PLACED;
+
     }
 
 }

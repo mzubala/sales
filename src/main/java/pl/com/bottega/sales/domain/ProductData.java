@@ -2,13 +2,8 @@ package pl.com.bottega.sales.domain;
 
 import pl.com.bottega.common.domain.Money;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
-
-@Embeddable
 public class ProductData {
 
-    @Embedded
     private Money price;
     private String name;
     private Long productId;
@@ -23,9 +18,5 @@ public class ProductData {
 
     public Long getProductId() {
         return productId;
-    }
-
-    public Money getPrice() {
-        return price;
     }
 }

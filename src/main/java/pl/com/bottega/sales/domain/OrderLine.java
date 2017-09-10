@@ -1,15 +1,7 @@
 package pl.com.bottega.sales.domain;
 
-import pl.com.bottega.common.domain.BaseEntity;
-import pl.com.bottega.common.domain.Money;
+public class OrderLine {
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-
-@Entity
-public class OrderLine extends BaseEntity {
-
-    @Embedded
     private ProductData productData;
     private Integer count;
 
@@ -26,9 +18,5 @@ public class OrderLine extends BaseEntity {
 
     public boolean hasProduct(Long productId) {
         return productData.getProductId().equals(productId);
-    }
-
-    public Money getPrice() {
-        return productData.getPrice().multiplyBy(count);
     }
 }
