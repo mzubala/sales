@@ -34,12 +34,4 @@ public class OrderLine extends BaseEntity {
     public Money getPrice() {
         return productData.getPrice().multiplyBy(count);
     }
-
-    public String getProductName() {
-        return productData.getName();
-    }
-
-    public Integer getCount() {
-        return count;
-    }
 }

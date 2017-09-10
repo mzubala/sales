@@ -1,7 +1,5 @@
 package pl.com.bottega.sales.domain;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import pl.com.bottega.common.domain.Address;
 
 import javax.persistence.CascadeType;
