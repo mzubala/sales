@@ -3,7 +3,6 @@ package pl.com.bottega.common.domain;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.Version;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
@@ -11,7 +10,6 @@ public abstract class BaseAggregateRoot extends BaseEntity {
 
     private boolean removed;
 
-    @Version
     private Long version;
 
     private LocalDateTime createdAt;
