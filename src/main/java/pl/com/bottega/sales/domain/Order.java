@@ -27,4 +27,9 @@ public class Order extends BaseAggregateRoot {
 
     }
 
+    public void export(OrderBuilder orderBuilder) {
+        orderBuilder.addStatus(status.toString());
+        orderBuilder.addTotal(total);
+    }
+
 }
