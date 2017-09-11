@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.support.TransactionTemplate;
 import pl.com.bottega.common.domain.TestAggregate;
 import pl.com.bottega.common.domain.TestRepository;
+import pl.com.bottega.common.domain.repositories.AggregateNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -54,6 +55,29 @@ public class JpaBaseRepositoryTest {
             testRepository.put(loadedAgg);
             return null;
         });
+    }
+
+    @Test(expected = AggregateNotFoundException.class)
+    public void throwsExceptionWhneNotFound() {
+        testRepository.get(700L);
+    }
+
+    @Test
+    public void removesAggregates() {
+        // given
+        TestAggregate agg = new TestAggregate();
+        transactionTemplate.execute((c) -> {
+            testRepository.put(agg);
+            return null;
+        });
+
+        //when
+        transactionTemplate.execute((c) -> {
+            testRepository.remove(agg.getId());
+            return null;
+        });
+
+        assertThat(testRepository.getOptional(agg.getId())).isEmpty();
     }
 
 }
