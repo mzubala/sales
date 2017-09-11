@@ -23,26 +23,22 @@ public abstract class JPABaseRepository<Aggregate extends BaseAggregateRoot> imp
 
     @Override
     public Aggregate get(Long id) throws AggregateNotFoundException {
-        return getOptional(id).orElseThrow(() -> new AggregateNotFoundException(id, aggregateClass));
+        return null;
     }
 
     @Override
     public Optional<Aggregate> getOptional(Long id) {
-        Aggregate agg = entityManager.find(aggregateClass, id);
-        if(agg != null && agg.isRemoved())
-            agg = null;
-        return Optional.ofNullable(agg);
+        return null;
     }
 
     @Override
     public void put(Aggregate aggregate) {
-        if(!entityManager.contains(aggregate))
-            entityManager.persist(aggregate);
+
     }
 
     @Override
     public void remove(Long id) {
-        get(id).remove();
+
     }
 
 
