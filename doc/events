@@ -1,0 +1,29 @@
+Złóż zamówienie (Cart, Order, Payment, Rabate, Invoice, Tax)
+    - zamówienie złożone
+    - płatność przyjęta
+    - płatność odrzucona
+    - naliczono rabat
+    - zamówienie potweirdzono
+    - wystawiano fakture
+    - naliczono podatek
+
+Złóż reklamację (Order, Rma)
+    - złożona reklamacja
+
+Dodaj produkt do koszyka (Cart, Product)
+    - dodano produkt do koszyka
+    - zmieniono wartość zamówienia
+
+Usuń produkt z koszyka (Cart, Product)
+    - usunięto produkt z koszyka
+    - zmieniono wartość zamówienia
+
+Anuluj zamówienie (Order)
+    - zamówienie anulowane
+
+Zrealizuj zamówienie (Order, Inventory)
+    - zamówienie zrealizowane
+    - zmieniono stan magazynowy
+
+Odbierz zamówienie (Order)
+    - zamówienie odebrano

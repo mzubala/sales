@@ -6,25 +6,54 @@ import pl.com.bottega.common.domain.Money;
 import javax.persistence.*;
 import java.util.*;
 
+import static com.google.common.base.Preconditions.checkState;
+import static sun.java2d.cmm.kcms.CMM.checkStatus;
+
+@Entity
 public class Order extends BaseAggregateRoot {
 
+    @OneToMany
+    @JoinColumn
     private List<OrderItem> items = new ArrayList<>();
 
+    @Embedded
     private Money total;
 
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public Order(Customer customer) {
+    @Embedded
+    private CustomerSnapshot customer;
+
+    Order() {}
+
+    public Order(CustomerSnapshot customer) {
+        this.customer = customer;
         this.total = Money.ZERO;
         this.status = OrderStatus.NEW;
     }
 
-    public void addItem(Product product, int count) {
-
+    public void addItem(ProductSnapshot product, int count) {
+        if(status == OrderStatus.PLACED)
+            throw new IllegalStateException("Orr already placed");
+        if(count <= 0)
+            throw new IllegalArgumentException("Count must be positive");
+        OrderItem item = findByProduct(product).orElseGet(() -> {
+            OrderItem newItem = new OrderItem(product);
+            items.add(newItem);
+            return newItem;
+        });
+        item.inc(count);
     }
 
-    public void removeItem(Product product) {
+    private Optional<OrderItem> findByProduct(ProductSnapshot product) {
+        return items.stream().filter((oi) -> oi.isForProduct(product)).findFirst();
+    }
 
+    public void removeItem(ProductSnapshot product) {
+        Optional<OrderItem> orderItemOptional = findByProduct(product);
+        OrderItem orderItem = orderItemOptional.orElseThrow(() -> new IllegalArgumentException("No such product"));
+        items.remove(orderItem);
     }
 
     public void export(OrderBuilder orderBuilder) {
@@ -32,4 +61,12 @@ public class Order extends BaseAggregateRoot {
         orderBuilder.addTotal(total);
     }
 
+    public Long getCustomerId() {
+        return customer.getId();
+    }
+
+    public void place() {
+        checkState(status == OrderStatus.NEW);
+        status = OrderStatus.PLACED;
+    }
 }

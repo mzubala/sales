@@ -3,9 +3,12 @@ package pl.com.bottega.sales.domain;
 import pl.com.bottega.common.domain.Address;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
 
+import javax.persistence.AssociationOverrides;
 import javax.persistence.AttributeOverride;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
+@Entity
 public class Customer extends BaseAggregateRoot {
 
     private String firstName;
@@ -13,9 +16,11 @@ public class Customer extends BaseAggregateRoot {
 
     private CustomerStatus status;
 
+    @Embedded
     private Address shippingAddress;
 
-    private Address billingAddress;
+    //@Embedded
+    //private Address billingAddress;
 
     public String getFirstName() {
         return firstName;
@@ -33,7 +38,11 @@ public class Customer extends BaseAggregateRoot {
         return shippingAddress;
     }
 
-    public Address getBillingAddress() {
-        return billingAddress;
+    //public Address getBillingAddress() {
+    //    return billingAddress;
+    //}
+
+    public CustomerSnapshot getSnapshot() {
+        return new CustomerSnapshot(getId(), firstName, lastName, shippingAddress);
     }
 }
