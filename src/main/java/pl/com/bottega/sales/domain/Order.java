@@ -8,6 +8,8 @@ import pl.com.bottega.common.domain.events.EventPublisher;
 import pl.com.bottega.common.domain.events.EventPublisherAware;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.google.common.base.Preconditions.checkState;
@@ -34,6 +36,7 @@ public class Order extends BaseAggregateRoot implements EventPublisherAware {
 
     @Transient
     private EventPublisher eventPublisher;
+    private LocalDate placedAt;
 
     Order() {}
 
@@ -79,6 +82,7 @@ public class Order extends BaseAggregateRoot implements EventPublisherAware {
     public void place() {
         checkState(status == OrderStatus.NEW);
         status = OrderStatus.PLACED;
+        placedAt = LocalDate.now();
     }
 
     @Override

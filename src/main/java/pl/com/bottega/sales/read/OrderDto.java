@@ -9,6 +9,11 @@ public class OrderDto {
     private LocalDate placedAt;
     private Money total;
 
+    public OrderDto(LocalDate placedAt, Money total) {
+        this.placedAt = placedAt;
+        this.total = total;
+    }
+
     public LocalDate getPlacedAt() {
         return placedAt;
     }

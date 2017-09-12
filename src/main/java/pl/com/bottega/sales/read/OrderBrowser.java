@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface OrderBrowser {
 
-    List<OrderDto> browse(Long customerId);
+    SearchResults<OrderDto> browse(Long customerId, int pageNumber, int pageSize);
 
     byte[] exportOrders(Long customerId);
 
