@@ -10,4 +10,9 @@ public class MyBatisOrderBrowser implements OrderBrowser {
     public List<OrderDto> browse(Long customerId) {
         return null;
     }
+
+    @Override
+    public byte[] exportOrders(Long customerId) {
+        return new byte[0];
+    }
 }
