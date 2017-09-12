@@ -2,6 +2,7 @@ package pl.com.bottega.sales.application;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import pl.com.bottega.common.domain.events.EventPublisher;
 import pl.com.bottega.sales.domain.Customer;
 import pl.com.bottega.sales.domain.Order;
 import pl.com.bottega.sales.domain.Product;
@@ -16,8 +17,10 @@ public class StandardPurchaseProcess implements PurchaseProcess {
     private OrderRepository orderRepository;
     private ProductRepository productRepository;
     private CustomerRepository customerRepository;
+    private EventPublisher eventPublisher;
 
-    public StandardPurchaseProcess(OrderRepository orderRepository, ProductRepository productRepository, CustomerRepository customerRepository) {
+    public StandardPurchaseProcess(OrderRepository orderRepository, ProductRepository productRepository,
+                                   CustomerRepository customerRepository, EventPublisher eventPublisher) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
@@ -26,7 +29,7 @@ public class StandardPurchaseProcess implements PurchaseProcess {
     @Override
     public Long createOrder(Long customerId) {
         Customer customer = customerRepository.get(customerId);
-        Order order = new Order(customer.getSnapshot());
+        Order order = new Order(customer.getSnapshot(), eventPublisher);
         orderRepository.put(order);
         return order.getId();
     }
