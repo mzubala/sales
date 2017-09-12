@@ -1,13 +1,21 @@
 package pl.com.bottega.sales.application.users;
 
+import javax.persistence.*;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name="user")
 public class UserCore implements User {
 
+    @OneToMany(mappedBy = "userCore", cascade = CascadeType.ALL)
     private Set<UserRole> roles = new HashSet<>();
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String login, password;
 
@@ -31,6 +39,7 @@ public class UserCore implements User {
 
     @Override
     public void addRole(UserRole userRole) {
+        userRole.setUserCore(this);
         roles.add(userRole);
     }
 
