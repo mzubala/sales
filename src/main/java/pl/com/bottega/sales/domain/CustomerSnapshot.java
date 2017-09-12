@@ -15,6 +15,9 @@ public class CustomerSnapshot {
 
     private Long customerId;
 
+    CustomerSnapshot() {
+    }
+
     public CustomerSnapshot(Long id, String firstName, String lastName, Address address) {
         this.customerId = id;
         this.firstName = firstName;

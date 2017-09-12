@@ -2,6 +2,7 @@ package pl.com.bottega.sales.domain;
 
 import pl.com.bottega.common.domain.BaseEntity;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 

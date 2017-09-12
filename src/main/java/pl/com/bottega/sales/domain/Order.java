@@ -14,6 +14,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static sun.java2d.cmm.kcms.CMM.checkStatus;
 
 @Entity
+@Table(name="orders")
 public class Order extends BaseAggregateRoot implements EventPublisherAware {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
