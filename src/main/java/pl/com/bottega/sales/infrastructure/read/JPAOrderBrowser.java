@@ -18,7 +18,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-@Component
 public class JPAOrderBrowser implements OrderBrowser {
 
     @PersistenceContext
