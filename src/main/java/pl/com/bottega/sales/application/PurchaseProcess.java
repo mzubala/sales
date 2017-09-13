@@ -8,6 +8,8 @@ public interface PurchaseProcess {
 
     void removeProduct(Long orderId, Long productId);
 
-    void placeOrder(Long orderId);
+    void placeOrder(Long orderId) throws ProductNotAvailableException;
+
+    void updateInventory(Long productId, Long count);
 
 }
