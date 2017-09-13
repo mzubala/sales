@@ -1,5 +1,6 @@
 package pl.com.bottega.sales.domain;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
@@ -17,6 +18,7 @@ import static sun.java2d.cmm.kcms.CMM.checkStatus;
 
 @Entity
 @Table(name="orders")
+@DynamicUpdate
 public class Order extends BaseAggregateRoot implements EventPublisherAware {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -49,7 +51,7 @@ public class Order extends BaseAggregateRoot implements EventPublisherAware {
 
     public void addItem(ProductSnapshot product, int count) {
         if(status == OrderStatus.PLACED)
-            throw new IllegalStateException("Orr already placed");
+            throw new IllegalStateException("Order already placed");
         if(count <= 0)
             throw new IllegalArgumentException("Count must be positive");
         OrderItem item = findByProduct(product).orElseGet(() -> {
@@ -89,4 +91,5 @@ public class Order extends BaseAggregateRoot implements EventPublisherAware {
     public void setEventPublisher(EventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
     }
+
 }
