@@ -1,5 +1,7 @@
 package pl.com.bottega.sales.domain;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import pl.com.bottega.common.domain.Address;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
 
@@ -9,6 +11,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Customer extends BaseAggregateRoot {
 
     private String firstName;
@@ -44,5 +47,10 @@ public class Customer extends BaseAggregateRoot {
 
     public CustomerSnapshot getSnapshot() {
         return new CustomerSnapshot(getId(), firstName, lastName, shippingAddress);
+    }
+
+    public void changeName(String name, String surname) {
+        this.firstName = name;
+        this.lastName = surname;
     }
 }
