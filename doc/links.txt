@@ -1,1 +1,3 @@
 https://www.javaworld.com/article/2073723/core-java/why-getter-and-setter-methods-are-evil.html
+
+https://goo.gl/forms/vjtKvOy028HfFGFD3

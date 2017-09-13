@@ -12,6 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkState;
 import static sun.java2d.cmm.kcms.CMM.checkStatus;
@@ -92,4 +93,7 @@ public class Order extends BaseAggregateRoot implements EventPublisherAware {
         this.eventPublisher = eventPublisher;
     }
 
+    public List<OrderItem> getItems() {
+        return Collections.unmodifiableList(items);
+    }
 }

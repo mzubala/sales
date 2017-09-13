@@ -3,12 +3,14 @@ package pl.com.bottega.sales.application;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.common.domain.events.EventPublisher;
-import pl.com.bottega.sales.domain.Customer;
-import pl.com.bottega.sales.domain.Order;
-import pl.com.bottega.sales.domain.Product;
+import pl.com.bottega.sales.domain.*;
 import pl.com.bottega.sales.domain.repositories.CustomerRepository;
 import pl.com.bottega.sales.domain.repositories.OrderRepository;
 import pl.com.bottega.sales.domain.repositories.ProductRepository;
+
+import java.util.Collection;
+import java.util.Optional;
+import java.util.Set;
 
 @Component
 @Transactional
@@ -18,6 +20,7 @@ public class StandardPurchaseProcess implements PurchaseProcess {
     private ProductRepository productRepository;
     private CustomerRepository customerRepository;
     private EventPublisher eventPublisher;
+    private InventoryRepository inventoryRepository;
 
     public StandardPurchaseProcess(OrderRepository orderRepository, ProductRepository productRepository,
                                    CustomerRepository customerRepository, EventPublisher eventPublisher) {
@@ -60,8 +63,24 @@ public class StandardPurchaseProcess implements PurchaseProcess {
     public void placeOrder(Long orderId) {
         Order order = orderRepository.get(orderId);
 
+
         order.place();
+        Collection<OrderItem> orderedProducts = order.getItems(); //FIXME
+        orderedProducts.forEach(i -> {
+            Inventory inventory = inventoryRepository.loadForProduct(i.getProductId()).get();
+            inventory.sell(i.getProductCount());
+            inventoryRepository.put(inventory);
+            // TODO
+        });
 
         orderRepository.put(order);
+    }
+
+    @Override
+    public void updateInventory(Long productId, Long count) {
+        Optional<Inventory> opt = inventoryRepository.loadForProduct(productId);
+        Inventory inventory = opt.orElse(new Inventory(productId));
+        inventory.update(count);
+        inventoryRepository.put(inventory);
     }
 }
