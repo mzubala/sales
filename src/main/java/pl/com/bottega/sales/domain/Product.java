@@ -17,8 +17,6 @@ public class Product extends BaseAggregateRoot {
     @Embedded
     private Money price;
 
-    private  boolean onSale;
-
     Product() {}
 
     public Product(String name, Money price) {
@@ -36,9 +34,5 @@ public class Product extends BaseAggregateRoot {
 
     public ProductSnapshot getSnapshot(Customer customer) {
         return new ProductSnapshot(getId(), name, getPrice(customer));
-    }
-
-    public void putOnSale() {
-        onSale = true;
     }
 }
