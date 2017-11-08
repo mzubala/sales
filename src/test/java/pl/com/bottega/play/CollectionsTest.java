@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.support.TransactionTemplate;
-import pl.com.bottega.sales.application.PurchaseProcess;
-import pl.com.bottega.sales.domain.Customer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -24,9 +21,6 @@ public class CollectionsTest {
 
     @PersistenceContext
     private EntityManager em;
-
-    @Autowired
-    private PurchaseProcess purchaseProcess;
 
     @Test
     public void testBag() {
@@ -257,34 +251,6 @@ public class CollectionsTest {
         runInTransaction(() -> em.persist(new DocumentHeavy()));
 
         assertThat(em.createQuery("FROM DocumentLite").getResultList().size()).isEqualTo(1);
-    }
-
-    @Test
-    public void testNP1Select() {
-        int n = 5;
-        runInTransaction(() -> {
-            for (int i = 0; i < n; i++) {
-                Auction auction = new Auction();
-                auction.entityListJoin.add(new Bid());
-                auction.entityListJoin.add(new Bid());
-                auction.entityListJoin.add(new Bid());
-                em.persist(auction);
-            }
-        });
-
-        runInTransaction(() -> {
-            List<Auction> auctions = em.createQuery("FROM Auction a LEFT JOIN FETCH a.entityListJoin").getResultList();
-            for (Auction auction : auctions)
-                for (Bid bid : auction.entityListJoin)
-                    System.out.println(bid);
-        });
-    }
-
-    @Test
-    public void testPurchaseProcess() {
-        Customer c = new Customer();
-        runInTransaction(() -> em.persist(c));
-        purchaseProcess.createOrder(c.getId());
     }
 
     private void runInTransaction(Runnable r) {
