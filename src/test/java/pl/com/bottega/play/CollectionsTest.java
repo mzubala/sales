@@ -172,8 +172,6 @@ public class CollectionsTest {
 
     @Test
     public void testEntityBagJoin() {
-
-
         Auction auction = new Auction();
         runInTransaction(() -> em.persist(auction));
 
