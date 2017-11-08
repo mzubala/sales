@@ -1,7 +1,5 @@
 package pl.com.bottega.sales.domain;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
 import pl.com.bottega.common.domain.Money;
 
@@ -14,10 +12,8 @@ import static sun.java2d.cmm.kcms.CMM.checkStatus;
 @Entity
 public class Order extends BaseAggregateRoot {
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @Fetch(FetchMode.JOIN)
+    @OneToMany
     @JoinColumn
-    @OrderColumn
     private List<OrderItem> items = new ArrayList<>();
 
     @Embedded
