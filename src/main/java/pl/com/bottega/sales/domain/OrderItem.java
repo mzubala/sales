@@ -12,7 +12,6 @@ public class OrderItem extends BaseEntity {
     @Embedded
     private ProductSnapshot snapshot;
 
-    @Column(name="item_count")
     private int count;
 
     OrderItem() {
