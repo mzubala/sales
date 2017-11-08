@@ -9,7 +9,6 @@ import org.springframework.transaction.support.TransactionTemplate;
 import pl.com.bottega.sales.domain.Customer;
 import pl.com.bottega.sales.read.OrderBrowser;
 import pl.com.bottega.sales.read.OrderDto;
-import pl.com.bottega.sales.read.SearchResults;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,10 +37,8 @@ public class OrderingE2ETest {
         Customer c = new Customer();
         runInTransaction(() -> em.persist(c));
         purchaseProcess.createOrder(c.getId());
-        SearchResults<OrderDto> searchResults = orderBrowser.browse(c.getId(), 1, 20);
-        List<OrderDto> orderDtos = searchResults.getPage();
+        List<OrderDto> orderDtos = orderBrowser.browse(c.getId());
         assertThat(orderDtos.size()).isEqualTo(1);
-        assertThat(searchResults.getPagesCount()).isEqualTo(1);
     }
 
     private void runInTransaction(Runnable r) {
