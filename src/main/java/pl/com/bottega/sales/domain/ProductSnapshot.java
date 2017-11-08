@@ -24,8 +24,4 @@ public class ProductSnapshot {
     public boolean isForSameProduct(ProductSnapshot product) {
         return product.productId.equals(this.productId);
     }
-
-    public Long getProductId() {
-        return productId;
-    }
 }

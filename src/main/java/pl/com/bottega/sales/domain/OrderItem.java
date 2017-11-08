@@ -29,12 +29,4 @@ public class OrderItem extends BaseEntity {
     public boolean isForProduct(ProductSnapshot product) {
         return snapshot.isForSameProduct(product);
     }
-
-    public Long getProductId() {
-        return snapshot.getProductId();
-    }
-
-    public int getProductCount() {
-        return count;
-    }
 }
