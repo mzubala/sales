@@ -4,8 +4,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
 import pl.com.bottega.common.domain.Money;
-import pl.com.bottega.common.domain.events.EventPublisher;
-import pl.com.bottega.common.domain.events.EventPublisherAware;
 
 import javax.persistence.*;
 import java.util.*;
@@ -14,7 +12,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static sun.java2d.cmm.kcms.CMM.checkStatus;
 
 @Entity
-public class Order extends BaseAggregateRoot implements EventPublisherAware {
+public class Order extends BaseAggregateRoot {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
@@ -31,16 +29,12 @@ public class Order extends BaseAggregateRoot implements EventPublisherAware {
     @Embedded
     private CustomerSnapshot customer;
 
-    @Transient
-    private EventPublisher eventPublisher;
-
     Order() {}
 
-    public Order(CustomerSnapshot customer, EventPublisher eventPublisher) {
+    public Order(CustomerSnapshot customer) {
         this.customer = customer;
         this.total = Money.ZERO;
         this.status = OrderStatus.NEW;
-        this.eventPublisher = eventPublisher;
     }
 
     public void addItem(ProductSnapshot product, int count) {
@@ -78,10 +72,5 @@ public class Order extends BaseAggregateRoot implements EventPublisherAware {
     public void place() {
         checkState(status == OrderStatus.NEW);
         status = OrderStatus.PLACED;
-    }
-
-    @Override
-    public void setEventPublisher(EventPublisher eventPublisher) {
-        this.eventPublisher = eventPublisher;
     }
 }
