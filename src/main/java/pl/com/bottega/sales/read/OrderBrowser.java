@@ -6,6 +6,4 @@ public interface OrderBrowser {
 
     List<OrderDto> browse(Long customerId);
 
-    byte[] exportOrders(Long customerId);
-
 }
