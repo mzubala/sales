@@ -1,7 +1,5 @@
 package pl.com.bottega.sales.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import pl.com.bottega.common.domain.BaseAggregateRoot;
 import pl.com.bottega.common.domain.Money;
 
@@ -9,7 +7,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Product extends BaseAggregateRoot {
 
     private String name;
