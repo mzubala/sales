@@ -6,6 +6,7 @@ import pl.com.bottega.common.domain.BaseAggregateRoot;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Entity;
 
+@Entity
 public class Customer extends BaseAggregateRoot {
 
     private String firstName;
@@ -15,7 +16,7 @@ public class Customer extends BaseAggregateRoot {
 
     private Address shippingAddress;
 
-    private Address billingAddress;
+    //private Address billingAddress;
 
     public String getFirstName() {
         return firstName;
@@ -33,7 +34,7 @@ public class Customer extends BaseAggregateRoot {
         return shippingAddress;
     }
 
-    public Address getBillingAddress() {
+    /*public Address getBillingAddress() {
         return billingAddress;
-    }
+    }*/
 }
