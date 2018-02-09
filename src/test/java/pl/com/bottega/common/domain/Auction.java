@@ -1,5 +1,7 @@
 package pl.com.bottega.common.domain;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.util.LinkedList;
 
@@ -8,7 +10,7 @@ import java.util.List;
 @Entity
 public class Auction extends BaseEntity {
 
-  @OneToMany(fetch = FetchType.EAGER)
+  @OneToMany
   @JoinColumn
   public List<Bid> bids = new LinkedList<>();
 
